@@ -45,10 +45,6 @@ class Mesh:
                     # Find Boundary cells
                     if i in (0, self.nx-1) or j in (0, self.ny-1) or k in (0, self.nz-1):
                         self.boundary_cells.append((i, j, k))
-
-                    
-
-                    
                     self.neighbouring_cells.append((Xp,Xm,Yp,Ym,Zp,Zm)) # Append neighbouring cells to list: neighbouring_cells
                     self.cell_centers.append((x,y,z))
 
