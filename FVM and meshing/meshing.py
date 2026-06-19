@@ -25,7 +25,7 @@ class Mesh:
         self.Az = self.dx * self.dy # Cell area
 
     def calculate_cell_centre_coords(self):
-        cell_centers = []
+        self.cell_centers = []
         for i in range(self.nx): # Loop over x cells
             for ii in range(self.ny): # Loop over y cells
                 for iii in range(self.nz): # Loop over z cells
