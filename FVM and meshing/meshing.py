@@ -9,6 +9,7 @@ class Mesh:
         self.calculate_cell_sizes()
         self.calculate_cell_volume()
         self.calculate_cell_area()
+        self.calculate_cell_centre_coords()
 
     def calculate_cell_sizes(self):
         self.dx = self.length / self.nx # Length of individual cell in x axis
