@@ -7,6 +7,7 @@ class Mesh:
         self.ny = ny # number of cells in y direction
         self.nz = nz # number of cells in z direction
         self.calculate_cell_sizes()
+        self.calculate_cell_volume()
 
     def calculate_cell_sizes(self):
         self.dx = self.length / self.nx # Length of individual cell in x axis
