@@ -27,11 +27,11 @@ class Mesh:
     def calculate_cell_centre_coords(self):
         self.cell_centers = []
         for i in range(self.nx): # Loop over x cells
-            for ii in range(self.ny): # Loop over y cells
-                for iii in range(self.nz): # Loop over z cells
+            for j in range(self.ny): # Loop over y cells
+                for k in range(self.nz): # Loop over z cells
                     x = (i + 0.5) * self.dx
-                    y = (ii + 0.5) * self.dy
-                    z = (iii + 0.5) * self.dz
+                    y = (j + 0.5) * self.dy
+                    z = (k + 0.5) * self.dz
                     self.cell_centers.append((x,y,z))
                     
                     
