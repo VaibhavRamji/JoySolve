@@ -32,7 +32,7 @@ class Mesh:
                     x = (i + 0.5) * self.dx
                     y = (ii + 0.5) * self.dy
                     z = (iii + 0.5) * self.dz
-                    cell_centers.append((x,y,z))
+                    self.cell_centers.append((x,y,z))
                     
                     
 
