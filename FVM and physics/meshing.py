@@ -8,6 +8,7 @@ class Mesh:
         self.nz = nz # number of cells in z direction
         self.calculate_cell_sizes()
         self.calculate_cell_volume()
+        self.calculate_cell_area()
 
     def calculate_cell_sizes(self):
         self.dx = self.length / self.nx # Length of individual cell in x axis
@@ -16,5 +17,10 @@ class Mesh:
     
     def calculate_cell_volume(self):
         self.cell_volume = self.dx * self.dy * self.dz # volume of cell in an unstructured mesh
+    
+    def calculate_cell_area(self):
+        self.Ax = self.dy * self.dz # Cell area
+        self.Ay = self.dx * self.dz # Cell area
+        self.Az = self.dx * self.dy # Cell area
 
 
