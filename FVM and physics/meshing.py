@@ -14,6 +14,6 @@ class Mesh:
         self.dz = self.height / self.nz # Length of individual cell in z axis
     
     def calculate_cell_volume(self):
-        self.cell_volume = self.dx * self.dy * self.dz
+        self.cell_volume = self.dx * self.dy * self.dz # volume of cell in an unstructured mesh
 
 
