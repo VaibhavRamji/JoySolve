@@ -42,11 +42,12 @@ class Mesh:
                     Ym = (i,j-1,k) if j-1 >= 0 else None
                     Zp = (i,j,k+1) if k+1 < self.nz else None
                     Zm = (i,j,k-1) if k-1 >= 0 else None
-                    #Find Boundary cells
-                    if (i == 0 or i == self.nx-1 or
-                    j == 0 or j == self.ny-1 or
-                    k == 0 or k == self.nz-1):
-                        self.boundary_cells.append((i, j, k)) # Append boundary cells to list: boundary_cells
+                    # Find Boundary cells
+                    if i in (0, self.nx-1) or j in (0, self.ny-1) or k in (0, self.nz-1):
+                        self.boundary_cells.append((i, j, k))
+
+                    
+
                     
                     self.neighbouring_cells.append((Xp,Xm,Yp,Ym,Zp,Zm)) # Append neighbouring cells to list: neighbouring_cells
                     self.cell_centers.append((x,y,z))
