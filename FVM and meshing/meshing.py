@@ -28,6 +28,7 @@ class Mesh:
         self.boundary_cells = []
         self.neighbouring_cells = []
         self.cell_centers = []
+        self.face_centers = []
         for i in range(self.nx): # Loop over x cells
             for j in range(self.ny): # Loop over y cells
                 for k in range(self.nz): # Loop over z cells
@@ -35,6 +36,7 @@ class Mesh:
                     x = (i + 0.5) * self.dx
                     y = (j + 0.5) * self.dy
                     z = (k + 0.5) * self.dz
+
                     #Find neighbouring cells:
                     Xp = (i+1,j,k) if i+1 < self.nx else None
                     Xm = (i-1,j,k) if i-1 >= 0 else None
@@ -42,11 +44,24 @@ class Mesh:
                     Ym = (i,j-1,k) if j-1 >= 0 else None
                     Zp = (i,j,k+1) if k+1 < self.nz else None
                     Zm = (i,j,k-1) if k-1 >= 0 else None
+
                     # Find Boundary cells
                     if i in (0, self.nx-1) or j in (0, self.ny-1) or k in (0, self.nz-1):
                         self.boundary_cells.append((i, j, k))
+
+                    #Find face centers:
+                    x_plus = (x + self.dx/2,y,z)
+                    x_minus = (x - self.dx/2,y,z)
+
+                    y_plus = (x,y + self.dy/2,z)
+                    y_minus = (x,y - self.dy/2,z)
+
+                    z_plus = (x,y,z + self.dz/2)
+                    z_minus = (x,y,z - self.dz/2)
+
+                    self.face_centers.append((x_plus,x_minus,y_plus,y_minus,z_plus,z_minus)) # Append face center value to list: face_centers
                     self.neighbouring_cells.append((Xp,Xm,Yp,Ym,Zp,Zm)) # Append neighbouring cells to list: neighbouring_cells
-                    self.cell_centers.append((x,y,z))
+                    self.cell_centers.append((x,y,z)) # Append cell center values to list: cell_centers
 
    
 
