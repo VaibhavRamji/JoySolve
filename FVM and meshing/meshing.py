@@ -9,7 +9,7 @@ class Mesh:
         self.calculate_cell_sizes()
         self.calculate_cell_volume()
         self.calculate_cell_area()
-        self.calculate_cell_centre_coords()
+        self.generate_cell_data()
 
     def calculate_cell_sizes(self):
         self.dx = self.length / self.nx # Length of individual cell in x axis
@@ -24,15 +24,36 @@ class Mesh:
         self.Ay = self.dx * self.dz # Cell area
         self.Az = self.dx * self.dy # Cell area
 
-    def calculate_cell_centre_coords(self):
+    def generate_cell_data(self):
+        self.boundary_cells = []
+        self.neighbouring_cells = []
         self.cell_centers = []
         for i in range(self.nx): # Loop over x cells
             for j in range(self.ny): # Loop over y cells
                 for k in range(self.nz): # Loop over z cells
+                    #Find cell centers
                     x = (i + 0.5) * self.dx
                     y = (j + 0.5) * self.dy
                     z = (k + 0.5) * self.dz
+                    #Find neighbouring cells:
+                    Xp = (i+1,j,k) if i+1 < self.nx else None
+                    Xm = (i-1,j,k) if i-1 >= 0 else None
+                    Yp = (i,j+1,k) if j+1 < self.ny else None
+                    Ym = (i,j-1,k) if j-1 >= 0 else None
+                    Zp = (i,j,k+1) if k+1 < self.nz else None
+                    Zm = (i,j,k-1) if k-1 >= 0 else None
+                    #Find Boundary cells
+                    if (i == 0 or i == self.nx-1 or
+                    j == 0 or j == self.ny-1 or
+                    k == 0 or k == self.nz-1):
+                        self.boundary_cells.append((i, j, k)) # Append boundary cells to list: boundary_cells
+                    
+                    self.neighbouring_cells.append((Xp,Xm,Yp,Ym,Zp,Zm)) # Append neighbouring cells to list: neighbouring_cells
                     self.cell_centers.append((x,y,z))
+
+   
+
+
                     
                     
 
