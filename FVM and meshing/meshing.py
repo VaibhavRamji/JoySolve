@@ -26,7 +26,7 @@ class Mesh:
 
     def generate_cell_data(self):
         self.boundary_cells = []
-        self.neighbouring_cells = []
+        self.neighbours = []
         self.cell_centers = []
         self.face_centers = []
         self.cell_indices = []
@@ -70,7 +70,7 @@ class Mesh:
                         "z_plus":z_plus,
                         "z_minus":z_minus,
                     }) 
-                    self.neighbouring_cells.append({
+                    self.neighbours.append({
                         "Xp":Xp,
                         "Xm":Xm,
                         "Yp":Yp,
