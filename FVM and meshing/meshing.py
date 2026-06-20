@@ -61,8 +61,22 @@ class Mesh:
                     z_minus = (x,y,z - self.dz/2)
 
                     self.cell_indices.append((i,j,k)) # Appends each cell indice to list: cell_indices
-                    self.face_centers.append((x_plus,x_minus,y_plus,y_minus,z_plus,z_minus)) # Append face center value to list: face_centers
-                    self.neighbouring_cells.append((Xp,Xm,Yp,Ym,Zp,Zm)) # Append neighbouring cells to list: neighbouring_cells
+                    self.face_centers.append({
+                        "x_plus":x_plus,
+                        "x_minus":x_minus,
+                        "y_plus":y_plus,
+                        "y_minus":y_minus,
+                        "z_plus":z_plus,
+                        "z_minus":z_minus,
+                    }) 
+                    self.neighbouring_cells.append({
+                        "Xp":Xp,
+                        "Xm":Xm,
+                        "Yp":Yp,
+                        "Ym":Ym,
+                        "Zp":Zp,
+                        "Zm":Zm
+                    })
                     self.cell_centers.append((x,y,z)) # Append cell center values to list: cell_centers
 
    
