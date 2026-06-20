@@ -29,6 +29,7 @@ class Mesh:
         self.neighbouring_cells = []
         self.cell_centers = []
         self.face_centers = []
+        self.cell_indices = []
         for i in range(self.nx): # Loop over x cells
             for j in range(self.ny): # Loop over y cells
                 for k in range(self.nz): # Loop over z cells
@@ -59,6 +60,7 @@ class Mesh:
                     z_plus = (x,y,z + self.dz/2)
                     z_minus = (x,y,z - self.dz/2)
 
+                    self.cell_indices.append((i,j,k)) # Appends each cell indice to list: cell_indices
                     self.face_centers.append((x_plus,x_minus,y_plus,y_minus,z_plus,z_minus)) # Append face center value to list: face_centers
                     self.neighbouring_cells.append((Xp,Xm,Yp,Ym,Zp,Zm)) # Append neighbouring cells to list: neighbouring_cells
                     self.cell_centers.append((x,y,z)) # Append cell center values to list: cell_centers
