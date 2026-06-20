@@ -1,4 +1,4 @@
-from meshing import Mesh
+from meshing import Mesh # imports mesh to FVM.py
 
 
     
