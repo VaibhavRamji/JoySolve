@@ -30,6 +30,7 @@ class Mesh:
         self.cell_centers = []
         self.face_centers = []
         self.cell_indices = []
+        self.cell_map = []
         for i in range(self.nx): # Loop over x cells
             for j in range(self.ny): # Loop over y cells
                 for k in range(self.nz): # Loop over z cells
@@ -59,7 +60,11 @@ class Mesh:
 
                     z_plus = (x,y,z + self.dz/2)
                     z_minus = (x,y,z - self.dz/2)
-
+                    
+                    #Assign cell ID's:
+                    cell_id = len(self.cell_indices)
+                    self.cell_map[(i,j,k)] = cell_id
+                    
                     self.cell_indices.append((i,j,k)) # Appends each cell indice to list: cell_indices
                     self.cell_centers.append((x,y,z)) # Append cell center values to list: cell_centers
                     self.face_centers.append({
