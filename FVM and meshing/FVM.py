@@ -1,4 +1,5 @@
 from meshing import Mesh
+import numpy as np
 
 class FVM:
 
@@ -206,11 +207,16 @@ class FVM:
 
         return u_new, v_new, w_new
     
-    def pressure_poisson(u_x_plus,u_x_minus,v_y_plus,v_y_minus,w_z_plus,w_z_minus,mesh):
+    def pressure_poisson(u_x_plus,u_x_minus,v_y_plus,v_y_minus,w_z_plus,w_z_minus,mesh,p):
         RHS = [
             (u_x_plus - u_x_minus) / (2*mesh.dx) + (v_y_plus - v_y_minus) / (2*mesh.dy) + (w_z_plus - w_z_minus) / (2*mesh.dz)
         ]
-    
+        LHS = (
+            (np.roll(p, -1, axis=0) - 2*p + np.roll(p, 1, axis=0)) / mesh.dx**2 +
+            (np.roll(p, -1, axis=1) - 2*p + np.roll(p, 1, axis=1)) / mesh.dy**2 +
+            (np.roll(p, -1, axis=2) - 2*p + np.roll(p, 1, axis=2)) / mesh.dz**2
+            ) 
+        return RHS,LHS
 
 
     
