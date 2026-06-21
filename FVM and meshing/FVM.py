@@ -2,64 +2,71 @@ from meshing import Mesh
 
 class FVM:
 
+    
     @staticmethod
-    def face_and_cell_centered_velocites(u, v, w, i, j, k):
+    def face_and_cell_centered_velocities(u, v, w, cell_id, mesh):
 
-        # --- U component ---
-        u_p = u[i, j, k]
+        neighbours = mesh.neighbouring_cells[cell_id]
 
-        u_x_plus = u[i + 1, j, k]
-        u_x_minus = u[i - 1, j, k]
-        u_y_plus = u[i, j + 1, k]
-        u_y_minus = u[i, j - 1, k]
-        u_z_plus = u[i, j, k + 1]
-        u_z_minus = u[i, j, k - 1]
+        Xp = neighbours["Xp"]
+        Xm = neighbours["Xm"]
+        Yp = neighbours["Yp"]
+        Ym = neighbours["Ym"]
+        Zp = neighbours["Zp"]
+        Zm = neighbours["Zm"]
+
+        i, j, k = mesh.cell_indices[cell_id]
+
+        u_p = u[i,j,k]
+        v_p = v[i,j,k]
+        w_p = w[i,j,k]
+
+        u_x_plus  = u[Xp] if Xp is not None else u_p
+        u_x_minus = u[Xm] if Xm is not None else u_p
+        u_y_plus  = u[Yp] if Yp is not None else u_p
+        u_y_minus = u[Ym] if Ym is not None else u_p
+        u_z_plus  = u[Zp] if Zp is not None else u_p
+        u_z_minus = u[Zm] if Zm is not None else u_p
+
+        v_x_plus  = v[Xp] if Xp is not None else v_p
+        v_x_minus = v[Xm] if Xm is not None else v_p
+        v_y_plus  = v[Yp] if Yp is not None else v_p
+        v_y_minus = v[Ym] if Ym is not None else v_p
+        v_z_plus  = v[Zp] if Zp is not None else v_p
+        v_z_minus = v[Zm] if Zm is not None else v_p
+
+        w_x_plus  = w[Xp] if Xp is not None else w_p
+        w_x_minus = w[Xm] if Xm is not None else w_p
+        w_y_plus  = w[Yp] if Yp is not None else w_p
+        w_y_minus = w[Ym] if Ym is not None else w_p
+        w_z_plus  = w[Zp] if Zp is not None else w_p
+        w_z_minus = w[Zm] if Zm is not None else w_p
 
         u_face = {
-            "x_plus": 0.5 * (u_p + u_x_plus),
-            "x_minus": 0.5 * (u_p + u_x_minus),
-            "y_plus": 0.5 * (u_p + u_y_plus),
-            "y_minus": 0.5 * (u_p + u_y_minus),
-            "z_plus": 0.5 * (u_p + u_z_plus),
-            "z_minus": 0.5 * (u_p + u_z_minus),
+            "x_plus": 0.5*(u_p + u_x_plus),
+            "x_minus": 0.5*(u_p + u_x_minus),
+            "y_plus": 0.5*(u_p + u_y_plus),
+            "y_minus": 0.5*(u_p + u_y_minus),
+            "z_plus": 0.5*(u_p + u_z_plus),
+            "z_minus": 0.5*(u_p + u_z_minus),
         }
-
-        # --- V component ---
-        v_p = v[i, j, k]
-
-        v_x_plus = v[i + 1, j, k]
-        v_x_minus = v[i - 1, j, k]
-        v_y_plus = v[i, j + 1, k]
-        v_y_minus = v[i, j - 1, k]
-        v_z_plus = v[i, j, k + 1]
-        v_z_minus = v[i, j, k - 1]
 
         v_face = {
-            "x_plus": 0.5 * (v_p + v_x_plus),
-            "x_minus": 0.5 * (v_p + v_x_minus),
-            "y_plus": 0.5 * (v_p + v_y_plus),
-            "y_minus": 0.5 * (v_p + v_y_minus),
-            "z_plus": 0.5 * (v_p + v_z_plus),
-            "z_minus": 0.5 * (v_p + v_z_minus),
+            "x_plus": 0.5*(v_p + v_x_plus),
+            "x_minus": 0.5*(v_p + v_x_minus),
+            "y_plus": 0.5*(v_p + v_y_plus),
+            "y_minus": 0.5*(v_p + v_y_minus),
+            "z_plus": 0.5*(v_p + v_z_plus),
+            "z_minus": 0.5*(v_p + v_z_minus),
         }
 
-        # --- W component ---
-        w_p = w[i, j, k]
-
-        w_x_plus = w[i + 1, j, k]
-        w_x_minus = w[i - 1, j, k]
-        w_y_plus = w[i, j + 1, k]
-        w_y_minus = w[i, j - 1, k]
-        w_z_plus = w[i, j, k + 1]
-        w_z_minus = w[i, j, k - 1]
-
         w_face = {
-            "x_plus": 0.5 * (w_p + w_x_plus),
-            "x_minus": 0.5 * (w_p + w_x_minus),
-            "y_plus": 0.5 * (w_p + w_y_plus),
-            "y_minus": 0.5 * (w_p + w_y_minus),
-            "z_plus": 0.5 * (w_p + w_z_plus),
-            "z_minus": 0.5 * (w_p + w_z_minus),
+            "x_plus": 0.5*(w_p + w_x_plus),
+            "x_minus": 0.5*(w_p + w_x_minus),
+            "y_plus": 0.5*(w_p + w_y_plus),
+            "y_minus": 0.5*(w_p + w_y_minus),
+            "z_plus": 0.5*(w_p + w_z_plus),
+            "z_minus": 0.5*(w_p + w_z_minus),
         }
 
         return {
