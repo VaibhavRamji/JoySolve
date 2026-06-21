@@ -205,6 +205,12 @@ class FVM:
         w_new = w_p + dt * (-ADVw + Diffw)
 
         return u_new, v_new, w_new
+    
+    def pressure_poisson(u_x_plus,u_x_minus,v_y_plus,v_y_minus,w_z_plus,w_z_minus,mesh):
+        RHS = [
+            (u_x_plus - u_x_minus) / (2*mesh.dx) + (v_y_plus - v_y_minus) / (2*mesh.dy) + (w_z_plus - w_z_minus) / (2*mesh.dz)
+        ]
+    
 
 
     
